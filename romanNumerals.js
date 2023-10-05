@@ -1,7 +1,6 @@
 const { objectExpression } = require("@babel/types");
-console.log(toRomanLazy(944));
 function toRomanLazy(num) {
- const numerals = {
+ const romanNumeralToArabic = {
     "M":1000,
     "D":500,
     "C":100,
@@ -10,20 +9,21 @@ function toRomanLazy(num) {
    "V":5,
     "I":1
  }
-let roman = "";
-for(key in numerals){
-  while(num >= numerals[key]){
-  if(num >= numerals[key]){
-   roman += key;
-    num = num - numerals[key];
+let output = "";
+let romanNumeralPriorityOrder = ["M", "D", "C", "L", "X", "V", "I"];
+for(key of romanNumeralPriorityOrder){
+  while(num >= romanNumeralToArabic[key]){
+  if(num >= romanNumeralToArabic[key]){
+   output += key;
+    num = num - romanNumeralToArabic[key];
   }
 }
 }
-return roman;
+return output;
 }
 
 function toRoman(num) {
-  const numerals = {
+  const romanNumeralToArabic = {
     "M":1000,
     "CM":900,
     "D":500,
@@ -37,16 +37,17 @@ function toRoman(num) {
    "IV":4,
     "I":1
  }
- let roman = "";
-for(key in numerals){
-  while(num >= numerals[key]){
-  if(num >= numerals[key]){
-   roman += key;
-    num = num - numerals[key];
-  }
-}
-}
-  return roman;
-}
+ let output = "";
+ let romanNumeralPriorityOrder = ["M","CM", "D", "C", "L","XL", "X","IX", "V",,"IV", "I"];
+ for(key of romanNumeralPriorityOrder){
+   while(num >= romanNumeralToArabic[key]){
+   if(num >= romanNumeralToArabic[key]){
+    output += key;
+     num = num - romanNumeralToArabic[key];
+   }
+ }
+ }
+ return output;
+ }
 
 module.exports = { toRoman, toRomanLazy };
